@@ -8,7 +8,7 @@ PDSI_Central<- function(Z_all,count_loc,beg_row_col,end_row_col,lat_col,yr_col,P
 # arranged in a column vector, where a latitude is associated with each
 # observation (i.e., month) of the record.
 
-PET_col <- reshape(PET,length(PET)*12,1)
+PET_col <- reshape(t(PET),length(PET)*12,1)
 table <- vector()
 l <- vector()
 
@@ -205,7 +205,7 @@ for (j in 1:count_loc){
     # ended the first month when the probability becomes greater than 0#
     # and then continues to remain greater than 0# until it reaches 100#
     # (cf. Palmer, 1965; US Weather Bureau Research Paper 45).
-    PDSI <- X
+    PDSI <- t(X)
 
     ## ASSIGN PHDI VALUES
     # NOTE:
@@ -233,7 +233,7 @@ for (j in 1:count_loc){
     Z_loc <- Z_all(beg_row_col[j]:end_row_col[j],1)
 
     # Create output table of variables for location j.
-    table_loc <- c(lat_loc, yr_loc, PET_loc, Z_loc, PPe, PX1, PX2, PX3, X, PDSI, PHDI)
+    table_loc <- c(lat_loc, yr_loc, PET_loc, Z_loc, t(PPe), t(PX1), t(PX2),t(PX3), t(X), PDSI, t(PHDI))
     # Vertically concatenate output tables for all locations.
     table <- c(table, table_loc)
 
